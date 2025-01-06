@@ -64,12 +64,42 @@ header h1 {
 }
 
 .recipe-container {
+    background-color: #ededed;
+}
+
+.tri {
+    display: flex;
+    gap: 66px;
+    margin-left: 65px;
     padding-top: 20px;
+    align-items: center;
+}
+
+.tri select {
+    padding: 17px 16px;
+    border: 0;
+    border-radius: 11px;
+    width: 163px;
+    font-family: "Manrope", serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1b1b1b;
+}
+
+.tri h2 {
+    font-family: "Anton", serif;
+    font-size: 21px;
+    font-weight: 400;
+    position: absolute;
+    right: 102px;
+}
+
+.recipe-cards {
+    padding-top: 55px;
     display: flex;
     flex-wrap: wrap;
     gap: 66px;
     justify-content: center;
-    background-color: #ededed;
 }
 
 .recipe-card {

@@ -1,5 +1,5 @@
 //Le conteneur pour afficher les cartes
-const recipeContainer = document.getElementById("recipe-container");
+const recipeContainer = document.getElementById("recipe-cards");
 
 //Boucle pour afficher les recettes
 recipes.forEach(recipe => {
