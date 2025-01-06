@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+}
+
+header {
+    position: relative;
+    background-image: url("images/lampos-aritonang-24gR_9lCdes-unsplash.jpg");
+    height: 667px;
+    width: 100%;
+    background-size: cover;
+    background-position-y: -214px;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    /* Couleur semi-transparente */
+    backdrop-filter: brightness(0.8);
+    /* Applique le filtre */
+    z-index: 1;
+}
+
+.logo {
+    position: absolute;
+    left: 69px;
+    top: 51px;
+    z-index: 2;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 298px;
+}
+
+header h1 {
+    position: relative;
+    z-index: 2;
+    color: #ffd15b;
+    font-family: "Anton", serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 400;
+    font-size: 54px;
+    margin-top: 0;
+    margin-bottom: 29px;
+}
+
+.search {
+    z-index: 2;
+    width: 954px;
+    height: 86px;
+    padding-left: 35px;
+    border-radius: 11px;
+    border: 0;
+    font-size: 20px;
+}
+
+.recipe-image {
+    width: 50px;
+}
