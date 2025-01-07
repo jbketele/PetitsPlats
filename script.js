@@ -1,50 +1,52 @@
-//Le conteneur pour afficher les cartes
+// Sélection des éléments DOM
 const recipeContainer = document.getElementById("recipe-cards");
 const searchInput = document.getElementById("search-input");
 
+// Fonction pour afficher les recettes
 function displayRecipes(recipes) {
-    recipeContainer.innerHTML = ""; // Réinitialise le conteneur
-    //Boucle pour afficher les recettes
-    recipes.forEach(recipe => {
+    // Réinitialise le conteneur
+    recipeContainer.innerHTML = "";
+
+    // Parcourt chaque recette et crée une carte
+    recipes.forEach((recipe) => {
         const card = document.createElement("div");
         card.classList.add("recipe-card");
-        card.setAttribute("data-id", recipe.id); // Ajoute un identifiant unique
+        card.setAttribute("data-id", recipe.id); // Identifiant unique
 
-        // Construire les ingrédients sous forme de liste avec les quantités en dessous
+        // Construire les ingrédients sous forme de liste
         const ingredientGrid = recipe.ingredients
             .map((item) => {
                 const quantity = item.quantity ? `${item.quantity}` : "";
                 const unit = item.unit ? `${item.unit}` : "";
                 return `
-                <div class="ingredient-item">
-                    <span class="ingredient-name">${item.ingredient}</span>
-                    <span class="ingredient-quantity">${quantity} ${unit}</span>
-                </div>
-            `;
+                    <div class="ingredient-item">
+                        <span class="ingredient-name">${item.ingredient}</span>
+                        <span class="ingredient-quantity">${quantity} ${unit}</span>
+                    </div>
+                `;
             })
             .join("");
 
-
-        //Contenu HTML de la carte
+        // Contenu HTML de la carte
         card.innerHTML = `
-        <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
-        <p class= "time">${recipe.time}min</p>
-        <div class="recipe-body">
-            <h2 class="recipe-name">${recipe.name}</h2>
-            <div class="recipe">
-                <div class="recipe-content">
-                    <h3>recette</h3>
-                    <p class="recipe-description">${recipe.description.replace(/\n/g, "<br>")}</p>
-                </div>
-                <div class="recipe-ingredients">
-                    <h3>ingrédients</h3>
-                    <div class= "ingredient-grid">${ingredientGrid}</div>
+            <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image">
+            <p class="time">${recipe.time} min</p>
+            <div class="recipe-body">
+                <h2 class="recipe-name">${recipe.name}</h2>
+                <div class="recipe">
+                    <div class="recipe-content">
+                        <h3>Recette</h3>
+                        <p class="recipe-description">${recipe.description.replace(/\n/g, "<br>")}</p>
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h3>Ingrédients</h3>
+                        <div class="ingredient-grid">${ingredientGrid}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
 
-        //Ajouter la carte au conteneur
+        // Ajouter la carte au conteneur
         recipeContainer.appendChild(card);
     });
 }
@@ -52,24 +54,26 @@ function displayRecipes(recipes) {
 // Fonction pour filtrer les recettes
 function filterRecipes(query) {
     const recipeCards = document.querySelectorAll(".recipe-card");
-    query = query.toLowerCase();
+    query = query.toLowerCase(); // Normalise la recherche en minuscules
 
     recipeCards.forEach((card) => {
+        // Récupérer le texte visible dans la carte pour le filtrage
         const recipeName = card.querySelector(".recipe-name").textContent.toLowerCase();
 
+        // Vérifie si le texte contient la recherche
         if (recipeName.includes(query)) {
-            card.style.display = "";
+            card.style.display = ""; // Affiche la carte
         } else {
-            card.style.display = "none";
+            card.style.display = "none"; // Cache la carte
         }
     });
 }
 
 // Écouteur d'événement pour le champ de recherche
 searchInput.addEventListener("input", (event) => {
-    const query = event.target.value; // Récupère la valeur du champ
-    filterRecipes(query);
+    const query = event.target.value; // Récupère la valeur saisie
+    filterRecipes(query); // Filtre les cartes en fonction de la recherche
 });
 
-// Afficher toutes les recettes au chargement
+// Affiche toutes les recettes au chargement
 displayRecipes(recipes);
