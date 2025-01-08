@@ -1,6 +1,52 @@
-// Sélection des éléments DOM
+// Conteneurs
 const recipeContainer = document.getElementById("recipe-cards");
 const searchInput = document.getElementById("search-input");
+
+//Selects
+const ingredientsSelect = document.getElementById('list-ingredients')
+const appliancesSelect = document.getElementById("list-appareils");
+const utensilsSelect = document.getElementById("tools");
+const tagsContainer = document.getElementById("tags-container");
+
+//Variables pour suivre les filtres
+const activeFilters = {
+    ingredient: [],
+    appareil: [],
+    ustensile: [],
+};
+
+// Initialiser les selects
+function populateSelects() {
+    const ingredients = new Set();
+    const appliances = new Set();
+    const utensils = new Set();
+
+    recipes.forEach((recipe) => {
+        // Ajouter les ingrédients
+        recipe.ingredients.forEach((item) => ingredients.add(item.ingredient));
+
+        // Ajouter les appareils
+        appliances.add(recipe.appliance);
+
+        // Ajouter les ustensiles
+        recipe.ustensils.forEach((item) => utensils.add(item));
+    });
+
+    // Ajouter les options aux selects
+    addOptionsToSelect(ingredientsSelect, Array.from(ingredients));
+    addOptionsToSelect(appliancesSelect, Array.from(appliances));
+    addOptionsToSelect(utensilsSelect, Array.from(utensils));
+}
+
+// Ajouter des options à un select
+function addOptionsToSelect(select, options) {
+    options.forEach((option) => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.textContent = option;
+        select.appendChild(opt);
+    });
+}
 
 // Fonction pour afficher les recettes
 function displayRecipes(recipes) {
@@ -75,5 +121,80 @@ searchInput.addEventListener("input", (event) => {
     filterRecipes(query); // Filtre les cartes en fonction de la recherche
 });
 
-// Affiche toutes les recettes au chargement
+// Créer un tag
+function createTag(type, value) {
+    const tag = document.createElement("div");
+    tag.classList.add("tag");
+    tag.setAttribute("data-type", type);
+    tag.setAttribute("data-value", value);
+
+    tag.innerHTML = `
+        ${value} <span class="remove-tag">&times;</span>
+    `;
+
+    // Ajouter un gestionnaire pour supprimer le tag
+    tag.querySelector(".remove-tag").addEventListener("click", () => {
+        tag.remove();
+        activeFilters[type] = activeFilters[type].filter((item) => item !== value);
+        applyFilters();
+    });
+
+    tagsContainer.appendChild(tag);
+}
+
+// Gérer la sélection d'un mot-clé
+function handleSelectChange(event, type) {
+    const selectedValue = event.target.value;
+
+    if (selectedValue) {
+        if (!activeFilters[type].includes(selectedValue)) {
+            activeFilters[type].push(selectedValue);
+            createTag(type, selectedValue);
+            applyFilters();
+        }
+
+        event.target.value = "";
+    }
+}
+
+// Appliquer les filtres
+function applyFilters() {
+    let filteredRecipes = recipes;
+
+    if (activeFilters.ingredient.length > 0) {
+        filteredRecipes = filteredRecipes.filter((recipe) =>
+            activeFilters.ingredient.every((ingredient) =>
+                recipe.ingredients.some(
+                    (item) => item.ingredient.toLowerCase() === ingredient.toLowerCase()
+                )
+            )
+        );
+    }
+
+    if (activeFilters.appareil.length > 0) {
+        filteredRecipes = filteredRecipes.filter((recipe) =>
+            activeFilters.appareil.includes(recipe.appliance.toLowerCase())
+        );
+    }
+
+    if (activeFilters.ustensile.length > 0) {
+        filteredRecipes = filteredRecipes.filter((recipe) =>
+            activeFilters.ustensile.every((ustensile) =>
+                recipe.utensils.some(
+                    (item) => item.toLowerCase() === ustensile.toLowerCase()
+                )
+            )
+        );
+    }
+
+    displayRecipes(filteredRecipes);
+}
+
+// Ajouter des écouteurs aux selects
+ingredientsSelect.addEventListener("change", (e) => handleSelectChange(e, "ingredient"));
+appliancesSelect.addEventListener("change", (e) => handleSelectChange(e, "appareil"));
+utensilsSelect.addEventListener("change", (e) => handleSelectChange(e, "ustensile"));
+
+// Initialise
+populateSelects();
 displayRecipes(recipes);
