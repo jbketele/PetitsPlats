@@ -53,6 +53,11 @@ header h1 {
     margin-bottom: 29px;
 }
 
+.search-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .search {
     z-index: 2;
     width: 954px;
@@ -193,4 +198,27 @@ h2 {
     color: #7a7a7a;
     margin-top: 5px;
     display: block;
+}
+
+.tags-container {
+    margin: 10px 0;
+    z-index: 2;
+    width: fit-content;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    background-color: #e3e3e3;
+    color: #333;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.tag .remove-tag {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #ff0000;
+    font-weight: bold;
 }
