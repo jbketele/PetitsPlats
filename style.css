@@ -107,14 +107,11 @@ header h1 {
     align-items: center;
 }
 
-
-/* Dropdowns */
 .dropdown {
     position: relative;
     margin-top: 20px;
 }
 
-/* Dropdown Header */
 .dropdown-header {
     padding: 17px 16px;
     background-color: white;
@@ -135,12 +132,10 @@ header h1 {
     transform: rotate(180deg);
 }
 
-/* Conteneur des options */
 .dropdown-options-container {
     display: none;
     position: absolute;
     top: 100%;
-    /* Positionné juste en dessous de l'en-tête */
     left: 0;
     right: 0;
     background-color: #fff;
@@ -152,12 +147,10 @@ header h1 {
     padding: 10px 0;
 }
 
-/* Afficher les options lorsqu'actif */
 .dropdown.active .dropdown-options-container {
     display: block;
 }
 
-/* Conteneur pour le champ de recherche avec loupe */
 .dropdown-search-container {
     position: relative;
     margin-bottom: 10px;
@@ -167,7 +160,6 @@ header h1 {
 .dropdown-search-container input {
     width: 100%;
     padding: 10px 40px 10px 10px;
-    /* Espace pour l'icône à droite */
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -179,26 +171,21 @@ header h1 {
     border-color: #007bff;
 }
 
-/* Icône de loupe */
 .dropdown-search-container i {
     position: absolute;
     top: 40%;
     right: 20px;
-    /* Alignée à droite */
     transform: translateY(-50%);
     font-size: 16px;
     color: #aaa;
     pointer-events: none;
 }
 
-
-/* Champ de recherche dans le dropdown */
 .dropdown-search {
     width: 75%;
     padding: 10px;
     font-size: 14px;
     margin-bottom: 10px;
-    /* Espacement entre le champ et les options */
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
@@ -208,7 +195,6 @@ header h1 {
     border-color: grey;
 }
 
-/* Options */
 .dropdown-options {
     max-height: 200px;
     overflow-y: auto;
@@ -227,13 +213,11 @@ header h1 {
     background-color: #f0f0f0;
 }
 
-/* Conteneur pour les tags */
 .dropdown .tag-container {
     background-color: #ffd15b;
     margin-bottom: 10px;
 }
 
-/* Style d'un tag */
 .dropdown .tag {
     position: relative;
     font-family: "Manrope", serif;
@@ -261,7 +245,6 @@ header h1 {
     display: inline-block;
 }
 
-/* Icône de suppression */
 .tag .remove-tag {
     font-size: 16px;
     font-weight: bold;
@@ -271,7 +254,6 @@ header h1 {
 
 .tag .remove-tag:hover {
     color: #000;
-    /* Couleur plus sombre au survol */
 }
 
 .tri h2 {
@@ -286,13 +268,14 @@ header h1 {
     padding-top: 55px;
     display: flex;
     flex-wrap: wrap;
-    gap: 66px;
-    justify-content: center;
+    gap: 66px 48px;
+    padding-bottom: 75px;
+    padding-left: 102px;
 }
 
 .recipe-card {
     position: relative;
-    width: 395px;
+    width: 380px;
     background-color: white;
     border-radius: 21px;
     overflow: hidden;
@@ -358,12 +341,10 @@ h2 {
     margin: 0;
 }
 
-/* Grille des ingrédients */
 .ingredient-grid {
     font-family: "Manrope", serif;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* Deux colonnes */
     gap: 15px;
     margin-top: 10px;
 }

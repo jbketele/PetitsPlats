@@ -78,27 +78,39 @@ function searchStrict() {
     const query = searchInput.value.trim().toLowerCase();
 
     if (query) {
-        const filteredRecipes = recipes.filter(recipe => {
+        const filteredRecipes = [];
+
+        // Parcourt toutes les recettes
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            let matchFound = false;
+
             // Vérification stricte du nom
             if (recipe.name.toLowerCase() === query) {
-                return true;
+                matchFound = true;
             }
 
             // Vérification stricte de la description
-            if (recipe.description.toLowerCase() === query) {
-                return true;
+            if (!matchFound && recipe.description.toLowerCase() === query) {
+                matchFound = true;
             }
 
-            // Vérification stricte des ingrédients
-            for (const ingredient of recipe.ingredients) {
-                if (ingredient.ingredient.toLowerCase().includes(query)) {
-                    return true;
+            // Vérification des ingrédients (comme includes)
+            if (!matchFound) {
+                for (let j = 0; j < recipe.ingredients.length; j++) {
+                    const ingredient = recipe.ingredients[j].ingredient.toLowerCase();
+                    if (ingredient.indexOf(query) !== -1) { // Vérifie si le query est contenu dans l'ingrédient
+                        matchFound = true;
+                        break; // Pas besoin de continuer à vérifier les autres ingrédients
+                    }
                 }
             }
 
-            // Aucune correspondance trouvée pour cette recette
-            return false;
-        });
+            // Si une correspondance a été trouvée, ajoute la recette aux résultats
+            if (matchFound) {
+                filteredRecipes.push(recipe);
+            }
+        }
 
         // Affiche les recettes correspondantes ou un message d'erreur
         if (filteredRecipes.length > 0) {
@@ -111,7 +123,6 @@ function searchStrict() {
         applyFilters(); // Réaffiche toutes les recettes si le champ est vide
     }
 }
-
 
 // Affichage des recettes
 function displayRecipes(filteredRecipes) {
