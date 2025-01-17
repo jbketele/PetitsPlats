@@ -53,23 +53,36 @@ function searchStrict() {
 
     if (query) {
         const filteredRecipes = recipes.filter(recipe => {
-            return (
-                recipe.name.toLowerCase() === query || // Vérifier le nom
-                recipe.description.toLowerCase() === query || // Vérifier la description
-                recipe.ingredients.some(ingredient =>
-                    ingredient.ingredient.toLowerCase() === query // Vérifier les ingrédients
-                )
-            );
+            // Vérification stricte du nom
+            if (recipe.name.toLowerCase() === query) {
+                return true;
+            }
+
+            // Vérification stricte de la description
+            if (recipe.description.toLowerCase() === query) {
+                return true;
+            }
+
+            // Vérification stricte des ingrédients
+            for (const ingredient of recipe.ingredients) {
+                if (ingredient.ingredient.toLowerCase().includes(query)) {
+                    return true;
+                }
+            }
+
+            // Aucune correspondance trouvée pour cette recette
+            return false;
         });
 
+        // Affiche les recettes correspondantes ou un message d'erreur
         if (filteredRecipes.length > 0) {
-            displayRecipes(filteredRecipes); // Afficher les recettes filtrées
+            displayRecipes(filteredRecipes);
         } else {
             recipeContainer.innerHTML = `<p class="no-results">Aucune recette ne contient "${searchInput.value}".
             Vous pouvez chercher "tartes aux pommes", "poisson", etc.</p>`;
         }
     } else {
-        applyFilters(); // Afficher toutes les recettes si le champ est vide
+        applyFilters(); // Réaffiche toutes les recettes si le champ est vide
     }
 }
 
