@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,7 +21,8 @@
             <div class="search-container">
                 <input id="search-input" class="search" type="search"
                     placeholder="Rechercher une recette, un ingrédient, ...">
-                <div id="tags-container" class="tags-container"></div>
+                <span id="search-button" class="search-button"><i
+                        class="fa-solid fa-2xl fa-magnifying-glass"></i></span>
             </div>
 
         </div>
@@ -28,17 +30,54 @@
 
     <div id="recipe-container" class="recipe-container">
         <div class="tri">
-            <select name="ingredients" id="list-ingredients">
-                <option value="">Ingrédients</option>
-            </select>
-            <select name="appareils" id="list-appareils">
-                <option value="">Appareils</option>
-            </select>
-            <select name="tools" id="tools">
-                <option value="">Ustensiles</option>
-            </select>
-            <h2>1500 recettes</h2>
+            <div id="ingredient-dropdown" class="dropdown">
+                <div class="dropdown-header">
+                    Ingrédients
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-options-container">
+                    <div class="dropdown-search-container">
+                        <input type="search" class="dropdown-search">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="tag-container"></div>
+                    <div class="dropdown-options"></div>
+                </div>
+            </div>
+
+            <div id="appliance-dropdown" class="dropdown">
+                <div class="dropdown-header">
+                    Appareils
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-options-container">
+                    <div class="dropdown-search-container">
+                        <input type="search" class="dropdown-search">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="tag-container"></div>
+                    <div class="dropdown-options"></div>
+                </div>
+            </div>
+
+            <div id="ustensil-dropdown" class="dropdown">
+                <div class="dropdown-header">
+                    Ustensiles
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-options-container">
+                    <div class="dropdown-search-container">
+                        <input type="search" class="dropdown-search">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="tag-container"></div>
+                    <div class="dropdown-options"></div>
+                </div>
+            </div>
+
+            <h2 id="number-recipes"></h2>
         </div>
+        <div id="tags-container"></div>
         <div id="recipe-cards" class="recipe-cards"></div>
     </div>
 

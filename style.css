@@ -56,6 +56,7 @@ header h1 {
 .search-container {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .search {
@@ -63,9 +64,35 @@ header h1 {
     width: 954px;
     height: 86px;
     padding-left: 35px;
+    padding-right: 100px;
     border-radius: 11px;
     border: 0;
     font-size: 20px;
+}
+
+.search-button {
+    z-index: 2;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 51px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.search-button:hover {
+    background-color: #ffd15b;
+    color: black;
+}
+
+.search-button i {
+    font-size: xx-large;
 }
 
 .recipe-container {
@@ -80,15 +107,171 @@ header h1 {
     align-items: center;
 }
 
-.tri select {
+
+/* Dropdowns */
+.dropdown {
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Dropdown Header */
+.dropdown-header {
     padding: 17px 16px;
-    border: 0;
-    border-radius: 11px;
-    width: 163px;
+    background-color: white;
+    color: black;
     font-family: "Manrope", serif;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    gap: 63px;
+    align-items: center;
+}
+
+.dropdown-header i {
+    transition: transform 0.3s;
+}
+
+.dropdown.active .dropdown-header i {
+    transform: rotate(180deg);
+}
+
+/* Conteneur des options */
+.dropdown-options-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    /* Positionné juste en dessous de l'en-tête */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 10px 0;
+}
+
+/* Afficher les options lorsqu'actif */
+.dropdown.active .dropdown-options-container {
+    display: block;
+}
+
+/* Conteneur pour le champ de recherche avec loupe */
+.dropdown-search-container {
+    position: relative;
+    margin-bottom: 10px;
+    padding-inline: 10px;
+}
+
+.dropdown-search-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    /* Espace pour l'icône à droite */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.dropdown-search-container input:focus {
+    border-color: #007bff;
+}
+
+/* Icône de loupe */
+.dropdown-search-container i {
+    position: absolute;
+    top: 40%;
+    right: 20px;
+    /* Alignée à droite */
+    transform: translateY(-50%);
     font-size: 16px;
-    font-weight: 500;
-    color: #1b1b1b;
+    color: #aaa;
+    pointer-events: none;
+}
+
+
+/* Champ de recherche dans le dropdown */
+.dropdown-search {
+    width: 75%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    /* Espacement entre le champ et les options */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.dropdown-search:focus {
+    border-color: grey;
+}
+
+/* Options */
+.dropdown-options {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-inline: 10px;
+}
+
+.dropdown-options div {
+    font-family: "Manrope", serif;
+    font-size: 14px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-options div:hover {
+    background-color: #f0f0f0;
+}
+
+/* Conteneur pour les tags */
+.dropdown .tag-container {
+    background-color: #ffd15b;
+    margin-bottom: 10px;
+}
+
+/* Style d'un tag */
+.dropdown .tag {
+    position: relative;
+    font-family: "Manrope", serif;
+    background-color: #ffd15b;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+
+.dropdown .tag:hover {
+    font-weight: bold;
+}
+
+.dropdown .remove-tag {
+    display: none;
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown .tag:hover .remove-tag {
+    display: inline-block;
+}
+
+/* Icône de suppression */
+.tag .remove-tag {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.tag .remove-tag:hover {
+    color: #000;
+    /* Couleur plus sombre au survol */
 }
 
 .tri h2 {
@@ -206,19 +389,23 @@ h2 {
     width: fit-content;
 }
 
-.tag {
-    display: flex;
-    align-items: center;
-    background-color: #e3e3e3;
+.copied-tag {
+    width: fit-content;
+    margin-left: 65px;
+    margin-top: 20px;
+    background-color: #ffd15b;
     color: #333;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 10px;
+    padding: 17px 18px;
     font-size: 14px;
+    font-family: "Manrope", serif;
+    display: inline-flex;
+    gap: 60px;
 }
 
-.tag .remove-tag {
+.copied-tag .remove-tag {
     margin-left: 10px;
     cursor: pointer;
-    color: #ff0000;
+    color: black;
     font-weight: bold;
 }
